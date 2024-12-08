@@ -1,0 +1,153 @@
+/* General Body Styles */
+body {
+    font-family: "Segoe UI", Arial, sans-serif; /* Cambiado por una fuente más moderna y legible */
+    background: linear-gradient(to bottom, #87ceeb, #e0f7fa); /* Fondo degradado para un efecto más atractivo */
+    margin: 0;
+    padding: 0;
+    color: #333; /* Color base del texto */
+    line-height: 1.6;
+}
+
+/* Estilo de encabezado principal */
+h2 {
+    font-size: 2.5rem; /* Tamaño más prominente */
+    text-align: center;
+    color: #004085; /* Color más profesional */
+    margin: 20px 0;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+    transition: text-shadow 0.3s ease, transform 0.3s ease;
+}
+
+h2:hover {
+    text-shadow: 4px 4px 12px rgba(53, 70, 230, 0.5);
+    transform: scale(1.02); /* Pequeño aumento en el tamaño al pasar el cursor */
+}
+
+h5 {
+    text-align: center;
+    color: #555;
+    margin: 10px 0;
+}
+
+/* Contenedor principal */
+.container {
+    max-width: 400px; /* Mayor flexibilidad con ancho máximo */
+    margin: 40px auto;
+    background: #fff; /* Fondo blanco */
+    padding: 25px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Sombra más sutil */
+    border-radius: 12px; /* Bordes ligeramente más redondeados */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Estilo de los campos de formulario */
+.form-group {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="time"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #bbb; /* Bordes más suaves */
+    border-radius: 8px;
+    font-size: 14px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    background-color: #f9f9f9;
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus,
+input[type="time"]:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+    outline: none;
+}
+
+/* Botón de envío */
+.btn-submit {
+    width: 100%;
+    padding: 12px;
+    background: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-submit:hover {
+    background: #0056b3;
+    transform: translateY(-2px); /* Pequeño efecto de elevación */
+}
+
+/* Botón de enlace para volver */
+a {
+    display: inline-block;
+    margin-top: 15px;
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #0056b3;
+}
+
+/* Imagen de icono "Volver" */
+.bot {
+    width: 32px;
+    height: 32px;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+}
+
+.bot:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    filter: brightness(1.2);
+}
+
+/* Imagen de logo EsSalud en el footer */
+.logo-footer {
+    display: block;
+    margin: 20px auto;
+    width: 150px;
+    border-radius: 8px;
+}
+
+/* Estilo del label */
+.form-group label {
+    font-size: 14px;
+    font-weight: 600; /* Mayor grosor para claridad */
+    color: #444;
+    margin-bottom: 5px;
+    display: block;
+}
+
+/* Estilo del select */
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #bbb;
+    border-radius: 8px;
+    background: #f9f9f9;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+}
+
+.form-group select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+    outline: none;
+}

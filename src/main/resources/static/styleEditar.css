@@ -1,0 +1,172 @@
+/* General Body Styles */
+body {
+    font-family: "Algerian", sans-serif;
+    background-color: #87ceeb;
+    margin: 0;
+    padding: 0;
+}
+
+h2 {
+    font-size: 2rem;
+    text-align: center;
+    color: #000000;
+    margin: 10px 0;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+h2:hover {
+    text-shadow: 4px 4px 8px rgba(53, 70, 230, 0.4);
+}
+
+
+h5 {
+    text-align: center;
+    color: #666666;
+    margin: 10px 0;
+}
+
+/* Estilo del contenedor principal */
+.container {
+    width: 30%;
+    margin: 30px auto;
+    background-color: #ffffff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Estilo de los campos de formulario */
+.form-group {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="time"] {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #239abe;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus,
+input[type="time"]:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Botón de envío */
+.btn-submit {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-submit:hover {
+    background-color: #0056b3;
+}
+
+.button-container {
+    width: 100%;
+    text-align: center;
+}
+
+/* Imagen de icono "Volver" */
+.bot {
+    width: 32px;
+    height: 32px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+}
+
+.bot:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+    filter: brightness(1.1);
+}
+
+/* Imagen de logo EsSalud en el footer */
+.logo-footer {
+    display: block;
+    margin: 20px auto;
+    width: 150px;
+    border-radius: 8px;
+}
+
+/* Estilo del contenedor del formulario */
+.form-group {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+/* Estilo del label */
+.form-group label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+    display: block;
+}
+
+/* Estilo del select */
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #239abe;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 14px;
+    background-color: #ffffff;
+    transition: border-color 0.3s ease;
+}
+
+/* Estilo al enfocarse en el select */
+.form-group select:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+
+/* Estilo de la opción seleccionada */
+.form-group select option {
+    font-size: 14px;
+    color: #333;
+}
+
+/*esto es nuevo*/
+.notificacion {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    opacity: 0; /* Inicialmente invisible */
+    transform: translateX(100%); /* Empuja la notificación fuera de la pantalla */
+    transition: opacity 0.5s, transform 0.5s; /* Transiciones suaves */
+}
+
+/* Clase que se añade para mostrar la notificación */
+.notificacion.mostrar {
+    opacity: 1; /* Hace visible la notificación */
+    transform: translateX(0); /* Mueve la notificación hacia la pantalla */
+}

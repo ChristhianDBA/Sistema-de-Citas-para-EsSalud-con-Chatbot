@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" th:href="@{/styleEditar.css}"/>
+    <title>Editar Cita</title>
+</head>
+<body>
+<div class="container">
+    <header>
+        <a th:href="@{/index}">
+            <img class="bot" th:src="@{/volver.png}" alt="Volver"/>
+        </a>
+        <h2>Editar Cita</h2>
+        <h5>Edite los campos:</h5>
+    </header>
+    <main>
+        <form th:action="@{/api/actualizarCita}" method="post">
+            <div class="form-group">
+                <label>Especialidad:</label>
+                <input type="text" name="especialidad" th:value="${cita.especialidad}" readonly>
+            </div>
+
+            <div class="form-group">
+                <label>Especialista:</label>
+                <input type="text" name="especialista" th:value="${cita.especialista}" readonly>
+            </div>
+
+            <div class="form-group">
+                <label>Fecha:</label>
+                <input type="date" name="fecha" th:value="${cita.fecha}">
+            </div>
+
+            <div class="form-group">
+                <label>Hora:</label>
+                <input type="time" name="hora" th:value="${cita.hora}">
+            </div>
+
+            <div class="form-group">
+                <label>Ubicación:</label>
+                <select name="ubicacion">
+                    <option th:each="ubicacion : ${ubicaciones}"
+                            th:value="${ubicacion.id}"
+                            th:text="${ubicacion.pabellon + ' ' + ubicacion.piso + ' ' + ubicacion.numeroSalon}"></option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Estado:</label>
+                <select name="estado">
+                    <option value="Pendiente" th:selected="${cita.estado == 'Pendiente'}">Pendiente</option>
+                    <option value="Cancelada" th:selected="${cita.estado == 'Cancelada'}">Cancelada</option>
+                </select>
+            </div>
+
+            <div class="button-container">
+                <button type="submit" class="btn-submit">Actualizar</button>
+            </div>
+        </form>
+    </main>
+</div>
+
+
+
+</body>
+
+
+</html>

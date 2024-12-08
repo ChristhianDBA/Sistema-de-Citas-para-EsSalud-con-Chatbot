@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" th:href="@{/style.css}"/>
+    <title th:text="${titleForm}">Asistente Virtual</title>
+    <style>
+        /* Estilos Generales */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #87ceeb;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .chat-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 350px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+            transition: all 0.3s ease;
+        }
+
+        /* Cabecera del Chat */
+        .chat-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #46c1e6;
+            color: white;
+            padding: 12px;
+            border-radius: 12px;
+        }
+
+        .chat-header h4 {
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .chat-header img {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .chat-header button {
+            background-color: white;
+            border: none;
+            color: #46c1e6;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 50%;
+            padding: 5px 10px;
+            transition: all 0.3s ease;
+        }
+
+        .chat-header button:hover {
+            background-color: #239abe;
+            color: white;
+        }
+
+        /* Contenedor de Mensajes */
+        .chat-box {
+            height: 280px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 12px;
+            background-color: #f9f9f9;
+            box-shadow: inset 0px 0px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Entrada de texto y Botón de Enviar */
+        .user-input {
+            width: 80%;
+            padding: 10px;
+            border-radius: 20px;
+            border: 1px solid #ddd;
+        }
+
+        .send-btn {
+            width: 18%;
+            padding: 10px;
+            border-radius: 15px;
+            background-color: #46c1e6;
+            color: #fff;
+            border: none;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .send-btn:hover {
+            background-color: #007bff;
+        }
+
+        /* Estilo de Minimización */
+        .minimized-chatbot-icon {
+            width: 80px;
+            height: 80px;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+
+        /* Estilo de la ventana minimizada */
+        #minimized-chatbot-icon {
+            display: block;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+        }
+
+        /* Estilo para el contenedor del chat cuando está minimizado */
+        #chat-container {
+            display: none;
+        }
+
+        #minimized-chatbot-icon {
+            display: block;
+        }
+        /* Estilos generales de los mensajes */
+        .chat-box {
+            height: 280px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 12px;
+            background-color: #f9f9f9;
+            box-shadow: inset 0px 0px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Estilos para los mensajes del usuario */
+        .user-message {
+            background-color: #87ceeb;
+            color: #000;
+            border-radius: 12px;
+            padding: 8px 15px;
+            margin-bottom: 10px;
+            max-width: 80%;
+            align-self: flex-end; /* Alinea los mensajes del usuario a la derecha */
+            word-wrap: break-word;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Estilos para los mensajes del chatbot */
+        .chatbot-message {
+            background-color: #ffffff; /* Fondo blanco para el chatbot */
+            color: #000;
+            border-radius: 12px;
+            padding: 8px 15px;
+            margin-bottom: 10px;
+            max-width: 80%;
+            align-self: flex-start; /* Alinea los mensajes del chatbot a la izquierda */
+            word-wrap: break-word;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+
+    </style>
+
+</head>
+<body>
+<div class="container">
+    <h1>¡HOLA! BIENVENIDO</h1>
+    <h4>Por favor, selecciona la opción correspondiente</h4>
+    <div class="button-container">
+        <button>
+            <a th:href="@{/form}">
+                <img th:src="@{/citas.png}" alt="Cita" class="boton-imagen"/>
+            </a>
+            <h5>CREAR CITA</h5>
+        </button>
+        <button>
+            <a th:href="@{/consultar}">
+                <img th:src="@{/consulta.png}" alt="Cita"/>
+            </a>
+            <h5>CONSULTAR CITA</h5>
+        </button>
+        <!-- Botón para abrir el chat -->
+        <button id="open-chatbot-btn">
+            <img th:src="@{/bot.png}" alt="Cita"/>
+            <h5>ASISTENTE VIRTUAL</h5>
+        </button>
+    </div>
+    <br/>
+    <img th:src="@{/logo.png}" alt="Logo"/>
+
+    <!-- Contenedor del chat, inicialmente oculto -->
+    <div id="chat-container" class="chat-container">
+        <div class="chat-header">
+            <!-- Logo del chatbot -->
+            <img id="chatbot-logo" th:src="@{/bot.png}" alt="Logo Chatbot"/>
+            <h4>sAIudito</h4>
+            <!-- Botones de minimizar y cerrar -->
+
+            <div>
+                <button id="minimize-btn">_</button>
+                <button id="close-btn">X</button>
+            </div>
+        </div>
+        <!-- Contenedor de mensajes -->
+        <div id="chat-box" class="chat-box">
+            <div id="chat-welcome" class="chatbot-message">¡Hola! Soy sAIudito, tu asistente virtual de EsSalud. Estoy aquí para ayudarte con tus consultas y más. ¿Cómo puedo asistirte hoy?</div>
+        </div>
+        <!-- Entrada de texto -->
+        <input type="text" id="user-input" class="user-input" placeholder="Escribe tu pregunta..."/>
+        <!-- Botón Enviar -->
+        <button id="send-btn" class="send-btn">Enviar</button>
+    </div>
+
+    <!-- Imagen para el chatbot minimizado -->
+    <img id="minimized-chatbot-icon" th:src="@{/bot.png}" alt="Chatbot minimizado" class="minimized-chatbot-icon" style="display: none;"/>
+</div>
+<script>
+    window.onload = function () {
+        // Verificar si el mensaje de bienvenida ya se mostró
+        initializeChat();
+    };
+
+    function initializeChat() {
+        // Verificamos si el mensaje de bienvenida ya ha sido mostrado
+        if (!localStorage.getItem("welcomeMessageShown")) {
+            const welcomeMessage = "¡Hola! Soy sAIudito, tu asistente virtual de EsSalud. Estoy aquí para ayudarte con tus consultas y más. ¿Cómo puedo asistirte hoy?";
+            addMessage("Chatbot", welcomeMessage); // Esta función agregará el mensaje de bienvenida al chat
+            // Guardamos en localStorage que ya se mostró el mensaje de bienvenida
+            localStorage.setItem("welcomeMessageShown", "true");
+        }
+    }
+
+    // Llamamos a la función cuando el chat se abre
+    document.getElementById("open-chatbot-btn").addEventListener("click", function () {
+        openChat();
+        initializeChat(); // Inicializa el mensaje de bienvenida al abrir el chat
+    });
+
+    const chatContainer = document.getElementById("chat-container");
+    const minimizedIcon = document.getElementById("minimized-chatbot-icon");
+
+    // Evento para abrir el chat
+    document.getElementById("open-chatbot-btn").addEventListener("click", openChat);
+
+    // Evento para cerrar el chat
+    document.getElementById("close-btn").addEventListener("click", closeChat);
+
+    // Evento para minimizar el chat
+    document.getElementById("minimize-btn").addEventListener("click", minimizeChat);
+
+    // Evento para mostrar el chat al hacer clic en el ícono minimizado
+    minimizedIcon.addEventListener("click", openChat);
+
+    function openChat() {
+        chatContainer.style.display = "block";
+        minimizedIcon.style.display = "none";
+    }
+
+    function closeChat() {
+        chatContainer.style.display = "none";
+        minimizedIcon.style.display = "none";
+    }
+
+    function minimizeChat() {
+        chatContainer.style.display = "none";
+        minimizedIcon.style.display = "block";
+    }
+
+    // Evento para enviar el mensaje al asistente
+    document.getElementById("send-btn").addEventListener("click", sendMessage);
+
+    function sendMessage() {
+        const userInput = document.getElementById("user-input").value;
+        if (userInput.trim() === "") return;
+
+        addMessage("Usuario", userInput);
+
+        // Envía el mensaje en formato JSON correcto
+        fetch("/api/chat/ask", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({"message": userInput})
+        })
+            .then(response => response.text())
+            .then(assistantResponse => addMessage("Chatbot", assistantResponse))
+            .catch(error => console.error("Error:", error));
+
+        document.getElementById("user-input").value = "";
+    }
+
+    // Función para añadir mensajes al chat
+    function addMessage(role, message) {
+        const chatBox = document.getElementById("chat-box");
+        const messageDiv = document.createElement("div");
+        messageDiv.classList.add(role === "Usuario" ? "user-message" : "chatbot-message");
+
+        messageDiv.innerText = `${message}`;
+        chatBox.appendChild(messageDiv);
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    document.getElementById("user-input").addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            sendMessage();
+        }
+    });
+</script>
+
+</body>
+</html>

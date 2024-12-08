@@ -1,0 +1,103 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  flex-direction: column;
+  font-family: Arial, sans-serif;
+}
+h1 {
+  font-family: "Algerian", sans-serif;
+  font-size: 2rem;
+  text-align: center;
+  color: #000000;
+  margin: 10px 0;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+h1:hover {
+  text-shadow: 4px 4px 8px rgba(53, 70, 230, 0.4); /* Más sombra al pasar el mouse */
+  transform: scale(1.05);
+}
+h4 {
+  text-align: center;
+  color: #666666;
+  margin: 10px 0;
+}
+button {
+  margin: 5px;
+}
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+body {
+  background-color: #87ceeb; /* Light sky blue */
+}
+.button-container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+.button-container button {
+  margin: 0 10px;
+  border: 2px solid #fcfcfc; /* Black border */
+  padding: 20px;
+  width: 180px;
+  height: 120px;
+  border-radius: 10px;
+  background-color: #c3f8ff; /* White background */
+  box-shadow: 0 4px 8px rgba(40, 95, 215, 0.1); /* Subtle shadow */
+}
+.container {
+  border: 2px solid #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px #000;
+}
+img {
+  width: 100px;
+  height: auto;
+}
+.button-container img {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 0.5em;
+}
+/* Estilo para el enlace con clase 'abc' */
+a.abc {
+  display: inline-block; /* Hace que el enlace se comporte como un botón */
+  text-decoration: none; /* Quita el subrayado */
+  color: #ffffff; /* Texto blanco */
+  font-weight: 600; /* Negrita con un grosor moderado */
+  padding: 10px 16px; /* Más espacio interno */
+  background-color: #007bff; /* Fondo azul profesional */
+  border: 2px solid #007bff; /* Borde del mismo color */
+  border-radius: 8px; /* Bordes más redondeados */
+  transition: all 0.3s ease-in-out; /* Transiciones suaves */
+  text-align: center; /* Centrado del texto */
+  font-size: 14px; /* Tamaño de texto ajustado */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+}
+
+/* Efecto al pasar el cursor */
+a.abc:hover {
+  background-color: #0056b3; /* Azul más oscuro */
+  border-color: #0056b3; /* Sincroniza el borde con el fondo */
+  color: #f8f9fa; /* Texto ligeramente más claro */
+  transform: translateY(-2px); /* Efecto de elevación */
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+}
+
+/* Efecto al activarse */
+a.abc:active {
+  transform: translateY(0); /* Remueve la elevación */
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.15); /* Sombra más ligera */
+  background-color: #004085; /* Azul aún más oscuro */
+}

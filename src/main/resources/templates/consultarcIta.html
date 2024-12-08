@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Consultar Cita</title>
+  <link rel="stylesheet" th:href="@{/styleConsultarCita.css}" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <a th:href="@{/index}">
+      <img class="bot back" th:src="@{/volver.png}" alt="Volver" />
+    </a>
+  </div>
+  <div class="content">
+    <h2>Consultar Cita</h2>
+    <h5>Completa todos los campos:</h5>
+    <div class="input-group">
+      <!-- Campo para el DNI del paciente -->
+      <input
+              type="text"
+              id="dni"
+              placeholder="Ingresa tu DNI"
+              maxlength="8"
+      />
+      <!-- Campo para el nombre completo del paciente -->
+      <input
+              type="text"
+              id="nombreCompleto"
+              placeholder="Nombre Completo"
+              disabled
+      />
+    </div>
+    <div class="table-container">
+      <table id="citas-table">
+        <thead>
+        <tr>
+          <th>Especialidad</th>
+          <th>Especialista</th>
+          <th>Fecha</th>
+          <th>Hora</th>
+          <th>Ubicación</th>
+          <th>Estado</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Filas dinámicas -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <footer>
+    <img th:src="@{/essalud.png}" alt="EsSalud Logo" class="logo" />
+  </footer>
+</div>
+<script>
+  $(document).ready(function () {
+    $('#dni').on('input', function () {
+      let dni = $(this).val();
+      if (dni.length === 8) {
+        $.ajax({
+          url: `/api/paciente/${dni}`,
+          type: 'GET',
+          success: function (response) {
+            $('#nombreCompleto').val(response.nombreCompleto);
+            let tbody = $('#citas-table tbody');
+            tbody.empty();
+            response.citas.forEach(cita => {
+              let row = `
+              <tr>
+                <td>${cita.especialidad}</td>
+                <td>${cita.especialista}</td>
+                <td>${cita.fecha}</td>
+                <td>${cita.hora}</td>
+                <td>${cita.ubicacion}</td>
+                <td>${cita.estado}</td>
+                <td>
+                  ${cita.estado === "Pendiente" ? `<button class="icon-button edit-button" data-cita='${JSON.stringify(cita)}'>
+                    <img src="/edit.png" alt="Edit" class="icon refresh" />
+                  </button>` : ''}
+                </td>
+              </tr>`;
+              tbody.append(row);
+            });
+
+            // Agregar evento click para los botones de edición
+            $('.edit-button').on('click', function () {
+              let cita = $(this).data('cita');
+              window.location.href = `/api/editarCita?especialidad=${cita.especialidad}&especialista=${cita.especialista}&fecha=${cita.fecha}&hora=${cita.hora}&ubicacion=${cita.ubicacion}&estado=${cita.estado}`;
+            });
+          },
+          error: function () {
+            $('#nombreCompleto').val('Paciente no encontrado');
+            $('#citas-table tbody').empty();
+          }
+        });
+      }
+    });
+  });
+
+</script>
+</body>
+</html>

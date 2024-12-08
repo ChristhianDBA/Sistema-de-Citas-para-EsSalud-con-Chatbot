@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>EsSalud Chatbot</title>
+    <link rel="stylesheet" th:href="@{/styleChatboot.css}"/>
+</head>
+<body>
+<header>
+    <a th:href="@{/index}">
+        <img class="bot" th:src="@{/volver.png}" alt="Volver"/>
+    </a>
+</header>
+<div class="chat-container">
+    <div id="chat-box" class="chat-box"></div>
+    <input type="text" id="user-input" class="user-input" placeholder="Escribe tu pregunta..."/>
+    <button id="send-btn" class="send-btn">Enviar</button>
+</div>
+<script>
+    document.getElementById("send-btn").addEventListener("click", sendMessage);
+
+    function sendMessage() {
+        const userInput = document.getElementById("user-input").value;
+        if (userInput.trim() === "") return;
+
+        addMessage("Usuario", userInput);
+
+        // Envía el mensaje en formato JSON correcto
+        fetch("/api/chat/ask", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ "message": userInput })
+        })
+            .then(response => response.text())
+            .then(assistantResponse => addMessage("Chatbot", assistantResponse))
+            .catch(error => console.error("Error:", error));
+
+        document.getElementById("user-input").value = "";
+    }
+
+    function addMessage(role, message) {
+        const chatBox = document.getElementById("chat-box");
+        const messageDiv = document.createElement("div");
+        messageDiv.classList.add(role === "Usuario" ? "user-message" : "chatbot-message");
+        messageDiv.innerText = `${role}: ${message}`;
+        chatBox.appendChild(messageDiv);
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+</script>
+</body>
+</html>
